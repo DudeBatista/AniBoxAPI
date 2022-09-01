@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AniBoxAPI.Models;
 
 namespace AniBoxAPI.Controllers
 {
@@ -34,22 +35,21 @@ namespace AniBoxAPI.Controllers
             sql = "SELECT * FROM tbAnime;";
             MySqlCommand cmd = new MySqlCommand(sql,conexao);
             reader = cmd.ExecuteReader();
-            List < Anime > 1 = new List<Anime>();
+            List<Anime> l = new List<Anime>();
             if (reader.HasRows)
             {
                 while (reader.Read())
                 {
-                    1.Add(new Anime(int.Parse(reader["idAnime"].ToString()),
+                    l.Add(new Anime(int.Parse(reader["idAnime"].ToString()),
                         reader["nomeAnime"].ToString(),
                         reader["criador"].ToString(),
                         int.Parse(reader["qtdeEP"].ToString()),
                         int.Parse(reader["dataLanc"].ToString()),
                         reader["sinopse"].ToString(),
-                        int.Parse(reader["idGenero"].ToString())));
-          
+                        new Genero(int.Parse(reader["idGenero"].ToString()),"")));
                 }
             }
-            return 1;
+            return l;
         }
         public void Fechar()
         {

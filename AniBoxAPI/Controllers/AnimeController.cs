@@ -4,15 +4,29 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using AniBoxAPI.Models;
 
 namespace AniBoxAPI.Controllers
 {
     public class AnimeController : ApiController
     {
-        // GET: api/Anime
-        public IEnumerable<string> Get()
+
+        [HttpGet]
+        [ActionName ("getAll")]
+        public IEnumerable <Anime> getAllAnimes()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                SqlConnectionController db = new SqlConnectionController();
+                var l = db.BuscaAnime();
+                db.Fechar();
+                return l;
+            }
+            catch(Exception e)
+            {
+                var resp =  new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                throw new HttpResponseException(resp);
+            }
         }
 
         // GET: api/Anime/5
