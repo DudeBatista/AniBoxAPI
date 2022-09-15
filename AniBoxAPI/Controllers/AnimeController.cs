@@ -32,6 +32,7 @@ namespace AniBoxAPI.Controllers
         }
 
         //arrumar os return
+        // tedstandi testando
         [HttpGet]
         [ActionName("GetAnimeByName")]
         public IEnumerable<Anime> GetAnimeByName(string name){
