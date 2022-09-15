@@ -30,6 +30,8 @@ namespace AniBoxAPI.Controllers
                 throw new HttpResponseException(resp);
             }
         }
+
+        //arrumar os return
         [HttpGet]
         [ActionName("GetAnimeByName")]
         public IEnumerable<Anime> GetAnimeByName(string name){
@@ -47,6 +49,7 @@ namespace AniBoxAPI.Controllers
                 throw new HttpResponseException(pega);
             }
         }
+
         [HttpGet]
         [ActionName("GetAnimeByGenero")]
         public IEnumerable<Anime> GetAnimeByGenero(string genero)
