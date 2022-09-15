@@ -51,6 +51,12 @@ namespace AniBoxAPI.Controllers
             }
             return l;
         }
+
+        internal object GetAnimeByParameter(string v, string name)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Fechar()
         {
             conexao.Close();

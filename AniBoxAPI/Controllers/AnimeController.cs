@@ -5,6 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using AniBoxAPI.Models;
+using MySql.Data.MySqlClient;
+using System.Configuration;
 
 namespace AniBoxAPI.Controllers
 {
@@ -12,8 +14,8 @@ namespace AniBoxAPI.Controllers
     {
 
         [HttpGet]
-        [ActionName ("getAll")]
-        public IEnumerable <Anime> getAllAnimes()
+        [ActionName("getAll")]
+        public IEnumerable<Anime> getAllAnimes()
         {
             try
             {
@@ -22,32 +24,47 @@ namespace AniBoxAPI.Controllers
                 db.Fechar();
                 return l;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                var resp =  new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                var resp = new HttpResponseMessage(HttpStatusCode.Unauthorized);
                 throw new HttpResponseException(resp);
             }
         }
+        [HttpGet]
+        [ActionName("GetAnimeByName")]
+        public IEnumerable<Anime> GetAnimeByName(string name){
 
-        // GET: api/Anime/5
-        public string Get(int id)
+            try
+            {
+                SqlConnectionController db = new SqlConnectionController();
+                var pega = db.GetAnimeByParameter("nomeAnime", name);
+                db.Fechar();
+                return pega;
+            }
+            catch(Exception e)
+            {
+                var pega = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                throw new HttpResponseException(pega);
+            }
+        }
+        [HttpGet]
+        [ActionName("GetAnimeByGenero")]
+        public IEnumerable<Anime> GetAnimeByGenero(string genero)
         {
-            return "value";
+
+            try
+            {
+                SqlConnectionController db = new SqlConnectionController();
+                var pega = db.GetAnimeByParameter("nomeGenero", genero);
+                db.Fechar();
+                return pega;
+            }
+            catch (Exception e)
+            {
+                var pega = new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                throw new HttpResponseException(pega);
+            }
         }
 
-        // POST: api/Anime
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT: api/Anime/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/Anime/5
-        public void Delete(int id)
-        {
-        }
     }
 }
